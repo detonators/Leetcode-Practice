@@ -22,24 +22,25 @@ class Solution {
 public:
     vector<int> postorder(Node* root) {
         vector<int> ans;
-        if (root == nullptr) {
-            return ans;
-        }
+        if (!root) return ans;
 
         stack<Node*> s;
         s.push(root);
+
         while (!s.empty()) {
             Node* node = s.top();
             s.pop();
             ans.push_back(node->val);
+
+            // We push the children onto the stack in the same order.
+            // This ensures that the last child is processed first.
             for (Node* child : node->children) {
-                if (child != nullptr) {
-                    s.push(child);
-                }
+                if (child) s.push(child);
             }
         }
 
-        reverse(ans.begin(), ans.end());
+        // Reverse the result only once at the end
+        std::reverse(ans.begin(), ans.end());
         return ans;
     }
 };
