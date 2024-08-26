@@ -22,19 +22,24 @@ class Solution {
 public:
     vector<int> postorder(Node* root) {
         vector<int> ans;
-        fun(root, ans);
-        return ans;
-    }
-
-    void fun(Node* root, vector<int>& ans) {
         if (root == nullptr) {
-            return;
+            return ans;
         }
 
-        for (Node* child : root->children) {
-            fun(child, ans);
+        stack<Node*> s;
+        s.push(root);
+        while (!s.empty()) {
+            Node* node = s.top();
+            s.pop();
+            ans.push_back(node->val);
+            for (Node* child : node->children) {
+                if (child != nullptr) {
+                    s.push(child);
+                }
+            }
         }
 
-        ans.push_back(root->val);
+        reverse(ans.begin(), ans.end());
+        return ans;
     }
 };
