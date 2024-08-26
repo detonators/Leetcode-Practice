@@ -21,9 +21,9 @@ public:
 class Solution {
 public:
     vector<int> postorder(Node* root) {
-        vector<int> ans;
-        if (!root) return ans;
+        if (!root) return {};  // Return an empty vector if root is null
 
+        vector<int> ans;
         stack<Node*> s;
         s.push(root);
 
@@ -32,15 +32,14 @@ public:
             s.pop();
             ans.push_back(node->val);
 
-            // We push the children onto the stack in the same order.
-            // This ensures that the last child is processed first.
+            // Push children to the stack in left-to-right order so that the leftmost child is processed last.
             for (Node* child : node->children) {
                 if (child) s.push(child);
             }
         }
 
-        // Reverse the result only once at the end
-        std::reverse(ans.begin(), ans.end());
+        // Reverse the result to get the correct postorder traversal
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
