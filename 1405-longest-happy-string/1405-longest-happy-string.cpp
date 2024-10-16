@@ -16,31 +16,21 @@ public:
                 last=c;
                 int x=min(2,maxi);
                 maxi-=x;
-                while(x--){
-                    ans.push_back(c);
-                }
-                if(maxi){
-                    pq.push({maxi,c});
-                }
+                while(x--) ans.push_back(c);
+                if(maxi) pq.push({maxi,c});    
             }
             else{
-                if(pq.empty()){
-                    return ans;
-                }
+                if(pq.empty()) return ans;
                 int newMaxi=pq.top().first;
                 char newC=pq.top().second;
                 pq.pop();
                 last=newC;
                 int x=min(1,newMaxi);
                 newMaxi-=x;
-                while(x--){
-                    ans.push_back(newC);
-                }
+                while(x--) ans.push_back(newC);
                 if(newMaxi) pq.push({newMaxi,newC});
-                
                 if(maxi) pq.push({maxi,c});
             }
-        }
-        return ans;
+        } return ans;
     }
 };
